@@ -27,7 +27,7 @@ function modalTests_featureset1(){
 		displayMessage('Modal object does not exist.  Check exercises/modal.js and make sure the object is defined still and there are no syntax errors in the console');
 		return false;
 	}
-	var modal = new Modal('#modalShadow', '#modalBody', '#modalMessage');
+	var modal = new Modal("#modalShadow", "#modalBody", "#modalMessage");
 	window.test = 'not set';
 	if(testMethod( modal, 'init')) return
 	try{
@@ -369,21 +369,6 @@ while( i<testFunctions.length && window[testFunctions[i]]() === true){
 }
 
 displayMessage(' All tests passed! ', 'header');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
