@@ -3,25 +3,30 @@
 class Modal{
 	//constructor takes in 3 arguments: the modal shadow dom element, the modal body dom element, and the modal message dom element
 	//Modal will have a property called onClose that will eventually be set to a callback set by the outside
-	constructor( ){
-
+	constructor( modalShadow, modalBody, modalMessage ){
+		this.modalShadow = $(modalShadow);
+		this.modalBody = $(modalBody);
+		this.modalMessage = $(modalMessage);
+		this.onClose = null;
 	}
 	//takes in no arguments.
 	//returns nothing
 	//shows the given modal shadow and the given modal body
 	show(){
-		
+		this.modalShadow.css('display', 'unset');
+		this.modalBody.css('display', 'unset');
 	}
 	//takes in no arguments
 	//returns nothing
 	//hides the given modal shadow and the given modal body
 	hide(){
-		
+		this.modalShadow.css('display', 'none');
+		this.modalBody.css('display', 'none');
 	}
 	//takes in a string that it then puts inside the text of the modal message element
 	//returns nothing
-	updateContents(  ){
-	
+	updateContents( message ){
+		this.modalMessage.text(message);
 	}
 	//takes in no arguments
 	//returns nothing
@@ -32,7 +37,9 @@ class Modal{
 				//this.FUNCTIONNAME.bind( this )
 			//otherwise it won't work correctly
 	init(){
-
+		this.hide();
+		this.modalShadow.click(this.onClose.bind(this));
+		this.modalShadow.click(this.hide.bind(this));
 	}
 
 }
