@@ -64,12 +64,12 @@ class ColorSquare{
 			make sure the rightNeighbor is something!  the rightmost element won't have a neighbor
 		*/
 	handleClick(){
-		if (this.colorArray[this.colorIndex + 1]){
+		if (this.colorIndex + 1 <= this.colorArray.length - 1){
 			this.colorIndex += 1;
-		}else if (this.colorArray.length){
+		}else if (this.colorArray){
 			this.colorIndex = 0;
 		}
-		this.element.css('background-color', this.colorArray[this.colorIndex]);
+		this.changeColor(this.colorArray[this.colorIndex]);
 		if(this.rightNeighbor){
 			this.rightNeighbor.handleClick();
 		}
@@ -102,7 +102,7 @@ class ColorSquare{
 	render(){
 		this.element = $('<div>').addClass(this.className);
 		this.element.on('click', this.handleClick);
-		this.element.css('background-color', this.colorArray[this.colorIndex]);
+		this.changeColor(this.colorArray[this.colorIndex]);
 		return this.element;
 	}
 }

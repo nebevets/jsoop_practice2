@@ -34,7 +34,7 @@ class Input{
 	//returns: nothing
 	//saves the given pattern into the object
 	setPattern( pattern ){
-		this.inputElement.attr('pattern', pattern);
+		//this.inputElement.attr('pattern', pattern);
 		this.pattern = new RegExp(pattern);
 	}
 	//getPattern returns the currently stored pattern of the input object
@@ -63,25 +63,16 @@ class Input{
 		let output = {
 			result: false
 		};
-		let valueTest = this.inputElement.val();
+		let inputValue = this.inputElement.val();
 		
-		if (this.pattern.test(valueTest)){
-			let rangeTest = this.getRange();
-			if(!rangeTest.min && !rangeTest.max){
+		if (this.pattern.test(inputValue)){
+			if(this.getRange().min === null && this.getRange().max === null){
 				output.result = true;
 				return output;
 			}
-			if (rangeTest.min){
-				if(valueTest < rangeTest.min){
-					output.error = 'range';
-					return output;
-				}
-			}
-			if (rangeTest.max){
-				if(valueTest > rangeTest.max){
-					output.error = 'range';
-					return output;
-				}
+			if(inputValue < this.getRange().min || inputValue > this.getRange().max){
+				output.error = 'range';
+				return output;
 			}
 			output.result = true;
 			return output;
@@ -111,6 +102,8 @@ class Input{
 
 		let inputPosition = this.inputElement.position();
 
+		this.hideError();
+		
 		this.errorMessageElement = $('<div>');
 		this.errorMessageElement.text(message);
 		
@@ -129,6 +122,9 @@ class Input{
 		removes the dom element in question (https://www.w3schools.com/jquery/html_remove.asp)
 		*/
 	hideError(){
-		this.errorMessageElement.remove();
+		if(this.errorMessageElement !== null){
+			this.errorMessageElement.remove();
+			this.errorMessageElement = null;
+		}
 	}
 }
